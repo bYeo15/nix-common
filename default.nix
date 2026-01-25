@@ -1,9 +1,16 @@
-{ inputs, config, lib, pkgs, ... }:
-
 {
-    imports = [
-        { _module.args = { extlib = import ./extlib { inherit lib; }; }; }
+    # Context-agnostic extension to the standard libraries
+    extlib = { sources, pkgs, lib, ... }: import ./extlib { inherit sources; inherit pkgs; inherit lib; };
+
+    data = [
         ./data_modules
+    ];
+
+    home = [
         ./renix
+    ];
+
+    nixos = [
+
     ];
 }

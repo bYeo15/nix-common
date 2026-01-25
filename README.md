@@ -68,6 +68,6 @@ For more detail, refer to the `renix` README.
 
 A data module provides a means of declaring an easily accessible data value.
 
-Data modules never cause the generation of any config on their own.
+Data modules never cause the generation of any config on their own, and thus are intended to be compatible with both NixOS and Home-Manager.
 
 Data modules are often the description of data that is then provided from a `secrets` module.

@@ -76,11 +76,50 @@ withDefault
         default [*]
             The default fallback value
 
-    OUT:
+    OUT: [*]
         If present, set.path. Otherwise, default
 ```
 
+eg.
 ```
 withDefault { a = { b = "c"; }; } [ "a" "b" ] "d" -> "c"
 withDefault { a = { b = "c"; }: } [ "a" "z" ] "d" -> "d"
+```
+
+
+## `makeHost`
+
+Builds a configuration into an attribute set exposing a derivation, such that it can be passed directly into `nixos-rebuild`.
+
+```
+makeHost
+    IN:
+        host [list<module>]
+            A list of top level modules to be used when evaluating the configuration
+
+        args [attrset<*>]
+            Arguments to forward to modules (equivalent to `specialArgs`)
+
+    OUT: [attrset<*>]
+        An attribute set produced by evaluating the configuration
+```
+
+
+## `makeHome`
+
+Builds a configuration into an attribute set exposing a derivation, such that it could be passed directly into `home-manager` if
+the `home-manager` CLI supported custom build targets.
+For now, is only useful if you also use my fork of `home-manager` that modifies the standalone CLI to accept custom build targets.
+
+```
+makeHome
+    IN:
+        user [list<module>]
+            A list of top level modules to be used when evaluating the configuration
+
+        args [attrset<*>]
+            Arguments to forward to modules (equivalent to `extraSpecialArgs`)
+
+    OUT: [attrset<*>]
+        An attribute set produced by evaluating the configuration
 ```
