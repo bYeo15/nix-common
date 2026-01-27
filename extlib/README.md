@@ -37,7 +37,7 @@ Filters an attribute set of tagged attribute sets for those matching a given set
 ```
 filterTagged
     IN:
-        attributes [list<str>]
+        attribute [str]
             The attribute to extract (by name)
 
         tags [list<str>]
@@ -52,11 +52,11 @@ filterTagged
 
 eg.
 ```
-filterTagged [ "value" ] [ "a" "c" ] {
-    attr1 = { tags = [ "a" "b" ]; value = "a" };
-    attr2 = { tags = [ "b" ]; value = "b" };
-    attr3 = { tags = [ "b" "c" ]; value = "c" };
-} -> { attr1 = "a"; attr3 = "c" };
+filterTagged "value" [ "a" "c" ] {
+    attr1 = { tags = [ "a" "b" ]; value = "a"; };
+    attr2 = { tags = [ "b" ]; value = "b"; };
+    attr3 = { tags = [ "b" "c" ]; value = "c"; };
+} -> { attr1 = "a"; attr3 = "c"; };
 ```
 
 
