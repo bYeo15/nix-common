@@ -5,5 +5,5 @@ let
 in user: args: evalHome {
     inherit pkgs;
     configuration = user;
-    extraSpecialArgs = args // { inherit self; };
+    extraSpecialArgs = args;
 }
