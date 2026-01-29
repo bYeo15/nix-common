@@ -4,7 +4,7 @@
 
     Integration config is;
 
-        helix_base: str optional
+        helixBase: str optional
             Sets the base theme to extend with current colours
 */
 
@@ -16,7 +16,7 @@ in {
     attrpath = [ "programs" "helix" "themes" "renix" ];
 
     realise = activeTheme: integrationConfig: {
-        inherits = withDefault integrationConfig [ "helix_base" ] "base16_transparent";
+        inherits = withDefault integrationConfig [ "helixBase" ] "base16_transparent";
         "ui.background" = "#${activeTheme.colour.mainBg}";
         "ui.text" = "#${activeTheme.colour.mainFg}";
         "ui.virtual.ruler" = "none";

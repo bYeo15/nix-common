@@ -29,5 +29,6 @@ in {
 
         sway.enable = activeTheme.integrations ? "sway" && activeTheme.integrations.sway.enable;
         gtk.enable = true;
+        x11.enable = true;
     };
 }
