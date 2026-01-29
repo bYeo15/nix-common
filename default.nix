@@ -4,6 +4,7 @@
 
     data = [
         ./data_modules
+        ./resources
     ];
 
     home = [
