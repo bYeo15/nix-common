@@ -1,0 +1,39 @@
+// SOURCE : https://www.shadertoy.com/view/3csSWB
+
+precision highp float;
+
+uniform float time;
+uniform vec2 resolution;
+
+#define COL_BG vec4(0.07058, 0.07058, 0.08627, 1.0)
+#define COL_MAIN vec4(0.90980, 0.90196, 0.88235, 1.0)
+
+void main(void) {
+    vec2 uv = gl_FragCoord.xy;
+    vec4 col = vec4(0.0);
+
+    float i = 0.2, a;
+
+    vec2 p = (uv + uv - resolution) / resolution.y / 0.6,
+         d = vec2(-0.75, 0.75 + 0.25 * sin(time * 0.2)) + 0.05 * sin(time * 2.0) * vec2(1.0, -1.0),
+         f = -d,
+         b = p - i * d,
+         c = p * mat2(1, 1, d / (0.1 + i / dot(b, b))),
+         v = c * mat2(cos(0.5 * log(a = dot(c, c)) + time * 0.5 * i + vec4(0, 33, 11, 0))) / i,
+         w;
+
+    for (; i++ < 9.0; w += 1.0 + sin(v))
+        v += 0.7 * sin(v.yx * i + time * 0.5) / i + 0.5;
+    i = length(sin(v / 0.3) * 0.4 + c * (3.0 + d));
+
+    col = 1.0 - exp(-exp(c.x * vec4(0.6, -0.4, -1.0, 0))
+          / w.xyyx
+          / (2.0 + i * i / 4.0 - i)
+          / (0.5 + 1.0 / a)
+          / (0.03 + abs(length(p) - 0.7))
+        );
+
+    col = mix(COL_BG, COL_MAIN, (col.x + col.y + col.z) / 3.5);
+
+    gl_FragColor = col;
+}

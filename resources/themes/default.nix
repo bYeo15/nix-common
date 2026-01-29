@@ -2,7 +2,6 @@
 
 {
     imports = [
-        ./devshells
-        ./themes
+        ./singularity
     ];
 }
