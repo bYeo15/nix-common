@@ -94,8 +94,8 @@ Builds a configuration into an attribute set exposing a derivation, such that it
 ```
 makeHost
     IN:
-        host [list<module>]
-            A list of top level modules to be used when evaluating the configuration
+        host [module]
+            A single top level module to be used when evaluating the configuration
 
         args [attrset<*>]
             Arguments to forward to modules (equivalent to `specialArgs`)
@@ -114,8 +114,8 @@ For now, is only useful if you also use my fork of `home-manager` that modifies 
 ```
 makeHome
     IN:
-        user [list<module>]
-            A list of top level modules to be used when evaluating the configuration
+        user [module]
+            A single top level module to be used when evaluating the configuration
 
         args [attrset<*>]
             Arguments to forward to modules (equivalent to `extraSpecialArgs`)
