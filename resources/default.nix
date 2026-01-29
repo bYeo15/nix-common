@@ -1,8 +1,7 @@
-{ config, lib, pkgs, ... }:
-
 {
-    imports = [
-        ./devshells
-        ./themes
-    ];
+    homeResources = [ ./themes ];
+
+    nixosResources = [ ];
+
+    sharedResources = [ ./devshells ];
 }
