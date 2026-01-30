@@ -85,5 +85,5 @@ in {
         };
     };
 
-    config = lib.mkIf cfg.enable integrations.realise cfg.activeTheme;
+    config = lib.mkIf cfg.enable (integrations.realise cfg.activeTheme);
 }
