@@ -8,7 +8,7 @@
             Sets the base theme to extend with current colours
 */
 
-{ lib, pkgs, extlib, ... }:
+{ lib, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;

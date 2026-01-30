@@ -5,14 +5,14 @@
 
     Integration config is;
 
-        baseStyle: attrset
+        baseStyle: fn theme -> attrset
             Style to apply to all elements ("*")
 
-        elemStyle: attrset
+        elemStyle: fn theme -> attrset
             Attribute set of element -> style attribute set (follows Home Manager rofi syntax)
 */
 
-{ lib, pkgs, extlib, ... }:
+{ lib, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;
@@ -26,6 +26,6 @@ in {
 
             background-color = mkLiteral "#${activeTheme.colour.mainBg}";
             text-color = mkLiteral "#${activeTheme.colour.mainFg}";
-        } // (withDefault integrationConfig [ "baseStyle" ] { });
-    } // (withDefault integrationConfig [ "elemStyles" ] { });
+        } // ((withDefault integrationConfig [ "baseStyle" ] (_: { })) activeTheme);
+    } // ((withDefault integrationConfig [ "elemStyles" ] (_: { })) activeTheme);
 }

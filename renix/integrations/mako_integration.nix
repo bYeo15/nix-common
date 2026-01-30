@@ -18,7 +18,7 @@
             Format string for notification output
 */
 
-{ lib, pkgs, extlib, ... }:
+{ lib, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;

@@ -1,4 +1,4 @@
-{  config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     inherit (config.lib.formats.rasi) mkLiteral;
@@ -44,24 +44,24 @@ in {
             rofi = {
                 enable = true;
 
-                baseStyle = {
+                baseStyle = activeTheme: {
                     margin = 0;
                     padding = 0;
                     spacing = 0;
                 };
 
-                elemStyle = with config.renix.activeTheme; {
+                elemStyle = activeTheme: {
                     "window" = {
                         location = mkLiteral "center";
                         width = 720;
                         height = 720;
-                        background-color = mkLiteral "#${colour.mainBg}";
+                        background-color = mkLiteral "#${activeTheme.colour.mainBg}";
                     };
 
                     "inputbar" = {
                         spacing = 8;
                         padding = 8;
-                        background-color = mkLiteral "#${colour.mainBg}";
+                        background-color = mkLiteral "#${activeTheme.colour.mainBg}";
                     };
 
                     "prompt, entry, element-text" = {
@@ -69,12 +69,12 @@ in {
                     };
 
                     "prompt" = {
-                        text-color = mkLiteral "#${colour.mainFg}";
+                        text-color = mkLiteral "#${activeTheme.colour.mainFg}";
                     };
 
                     "textbox" = {
                         padding = 8;
-                        background-color = mkLiteral "#${colour.mainBg}";
+                        background-color = mkLiteral "#${activeTheme.colour.mainBg}";
                     };
 
                     "listview" = {
@@ -91,12 +91,12 @@ in {
                     };
 
                     "element normal" = {
-                        text-color = mkLiteral "#${colour.mainFg}";
+                        text-color = mkLiteral "#${activeTheme.colour.mainFg}";
                     };
 
                     "element selected normal, element selected active" = {
-                        text-color = mkLiteral "#${colour.accentFg}";
-                        background-color = mkLiteral "#${colour.accentBg}";
+                        text-color = mkLiteral "#${activeTheme.colour.accentFg}";
+                        background-color = mkLiteral "#${activeTheme.colour.accentBg}";
                     };
 
                     "element-text" = {

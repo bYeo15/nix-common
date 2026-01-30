@@ -1,7 +1,6 @@
-{ config, lib, extlib,  ... } @ moduleArgs:
+{ lib, pkgs, extlib,  ... }:
 
-rec {
-    realise = import ./realise.nix moduleArgs availableIntegrations;
+let
     availableIntegrations = lib.attrsets.genAttrs [
         "cursor"
         "helix"
@@ -10,5 +9,7 @@ rec {
         "sway"
         "swaylock"
         "waybar"
-    ] (name: import (./. + "/${name}_integration.nix") moduleArgs);
+    ] (name: import (./. + "/${name}_integration.nix") { inherit lib pkgs extlib; } );
+in {
+    realise = import ./realise.nix { inherit lib pkgs extlib; } availableIntegrations;
 }

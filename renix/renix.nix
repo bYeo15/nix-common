@@ -1,6 +1,8 @@
-{ inputs, config, lib, pkgs, extlib, ... } @ moduleArgs:
+{ config, lib, pkgs, extlib, ... }:
 
 let
+    withDefault = extlib.withDefault;
+
     palette = with lib; with types; submodule {
         options = {
             mainBg = mkOption {
@@ -60,7 +62,7 @@ let
             };
 
             integrations = mkOption {
-                type = attrsof attrs;
+                type = attrsOf attrs;
                 description = "A set of integration attribute sets";
                 default = { };
             };
@@ -69,7 +71,8 @@ let
 
     cfg = config.renix;
 
-    integrations = import ./integrations moduleArgs;
+    integrations = import ./integrations { inherit lib pkgs extlib; };
+    renixResult = integrations.realise cfg.activeTheme;
 in {
     options.renix = with lib; with types; {
         enable = mkEnableOption "renix styling system";
@@ -85,5 +88,14 @@ in {
         };
     };
 
-    config = lib.mkIf cfg.enable (integrations.realise cfg.activeTheme);
+    # To avoid infinite recursion, this can't directly set config
+    # Instead, extract each top-level attribute from the result
+    # (this will need to be expanded if a path ever includes other
+    # top-levels)
+    config = {
+        home = lib.mkIf cfg.enable (withDefault renixResult [ "home" ] { });
+        programs = lib.mkIf cfg.enable (withDefault renixResult [ "programs" ] { });
+        services = lib.mkIf cfg.enable (withDefault renixResult [ "services" ] { });
+        wayland = lib.mkIf cfg.enable (withDefault renixResult [ "wayland" ] { });
+    };
 }

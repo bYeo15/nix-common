@@ -46,7 +46,7 @@
             Overrides the default style (which is very minimal)
 */
 
-{ lib, pkgs, extlib, ... }:
+{ lib, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;
@@ -73,7 +73,7 @@ in {
         rModules = withDefault integrationConfig [ "rightModules" ] [];
         cModules = withDefault integrationConfig [ "centreModules" ] [];
     in {
-        setings = {
+        settings = {
             mainBar = toBar integrationConfig;
         } //
         # Generate additional bars

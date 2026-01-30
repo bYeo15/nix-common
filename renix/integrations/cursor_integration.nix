@@ -14,7 +14,7 @@
             The size to use for the cursor
 */
 
-{ lib, pkgs, extlib, ... }:
+{ lib, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;

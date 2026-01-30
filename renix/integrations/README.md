@@ -2,7 +2,7 @@
 
 A `renix` integration is a function of the form:
 ```
-{ config, pkgs, lib, extlib, ... } -> {
+{ pkgs, lib, extlib, ... } -> {
     attrpath: list<str>
     realise: fn attrs -> fn attrs -> attrs
 }

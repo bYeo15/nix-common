@@ -1,4 +1,4 @@
-{ config, lib, extlib, ... }: availableIntegrations: activeTheme:
+{ lib, pkgs, extlib, ... }: availableIntegrations: activeTheme:
     # Fold the (potentially nested) realisations of each integration into a single config attrset
     lib.attrsets.foldlAttrs (acc: n: v:
         acc // (

@@ -8,7 +8,7 @@
             The background image to use on the lockscreen
 */
 
-{ lib, pkgs, extlib, ... }:
+{ lib, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;
