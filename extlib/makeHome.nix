@@ -2,8 +2,11 @@
 
 let
     evalHome = import "${toString sources.home-manager.outPath}/modules/default.nix";
-in user: args: evalHome {
+    consolidateModules = modules: { ... }: {
+        imports = modules;
+    };
+in userModules: args: evalHome {
     inherit pkgs;
-    configuration = user;
+    configuration = consolidateModules userModules;
     extraSpecialArgs = args;
 }
