@@ -13,12 +13,15 @@
 let
     withDefault = extlib.withDefault;
 in {
-    attrpath = [ "programs" "helix" "themes" "renix" ];
+    attrpath = [ "programs" "helix" ];
 
     realise = activeTheme: integrationConfig: {
-        inherits = withDefault integrationConfig [ "helixBase" ] "base16_transparent";
-        "ui.background" = "#${activeTheme.colour.mainBg}";
-        "ui.text" = "#${activeTheme.colour.mainFg}";
-        "ui.virtual.ruler" = "none";
+        settings.theme = "renix";
+        themes.renix = {
+            inherits = withDefault integrationConfig [ "helixBase" ] "base16_transparent";
+            "ui.background" = "#${activeTheme.colour.mainBg}";
+            "ui.text" = "#${activeTheme.colour.mainFg}";
+            "ui.virtual.ruler" = "none";
+        };
    };
 }

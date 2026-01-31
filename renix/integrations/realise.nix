@@ -1,7 +1,7 @@
 { lib, pkgs, extlib, ... }: availableIntegrations: activeTheme:
     # Fold the (potentially nested) realisations of each integration into a single config attrset
     lib.attrsets.foldlAttrs (acc: n: v:
-        acc // (
+        lib.attrsets.recursiveUpdate acc (
             lib.setAttrByPath availableIntegrations."${n}".attrpath (availableIntegrations."${n}".realise activeTheme v)
         )
     ) { }

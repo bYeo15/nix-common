@@ -27,5 +27,5 @@ in {
             background-color = mkLiteral "#${activeTheme.colour.mainBg}";
             text-color = mkLiteral "#${activeTheme.colour.mainFg}";
         } // ((withDefault integrationConfig [ "baseStyle" ] (_: { })) activeTheme);
-    } // ((withDefault integrationConfig [ "elemStyles" ] (_: { })) activeTheme);
+    } // ((withDefault integrationConfig [ "elemStyle" ] (_: { })) activeTheme);
 }
