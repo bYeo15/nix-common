@@ -112,12 +112,12 @@ in {
                 color: #${activeTheme.colour.mainFg};
             }
 
-            #workspaces button:focused {
+            #workspaces button.focused {
                 background-color: #${activeTheme.colour.accentBg};
                 color: #${activeTheme.colour.accentFg};
             }
 
-            #workspaces button:urgent {
+            #workspaces button.urgent {
                 background-color: #${activeTheme.colour.accentBg};
                 color: #${activeTheme.colour.accentFg};
             }
