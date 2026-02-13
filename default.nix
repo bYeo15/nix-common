@@ -3,6 +3,7 @@ let
 in {
     # Context-agnostic extension to the standard libraries
     extlib = { sources, pkgs, lib, ... }: import ./extlib { inherit sources; inherit pkgs; inherit lib; };
+    extpkgs = { pkgs, ... }: import ./extpkgs { inherit pkgs; };
 
 
     data = [
