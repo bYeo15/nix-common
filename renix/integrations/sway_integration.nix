@@ -98,7 +98,7 @@ in {
         output = { "*" = { bg = "${integrationConfig.background} fill"; }; };
 
         startup = if integrationConfig ? fragment && integrationConfig.fragment.enable then (builtins.map (
-            v: { always = false; command = "${lib.getExe pkgs.glpaper} -F ${v} ${integrationConfig.fragment.shader}"; }
+            v: { always = false; command = "glpaper -F ${v} ${integrationConfig.fragment.shader}"; }
         ) integrationConfig.fragment.displays) else [ ];
     };
 }
