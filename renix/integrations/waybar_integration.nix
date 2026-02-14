@@ -13,12 +13,17 @@
         barHeight: int optional
             Sets the height of the main bar
 
-
         barLMargin: int optional
             sets the left margin of the bar
 
         barRMargin: int optional
             sets the right margin of the bar
+
+        barTMargin: int optional
+            sets the top margin of the bar
+
+        barBMargin: int optional
+            sets the bottom margin of the bar
 
         moduleSpacing: int optional
             Sets the spacing between modules
@@ -68,6 +73,8 @@ let
 
         margin-left = withDefault config [ "barLMargin" ] 0;
         margin-right = withDefault config [ "barRMargin" ] 0;
+        margin-top = withDefault config [ "barTMargin" ] 2;
+        margin-bottom = withDefault config [ "barBMargin" ] 2;
 
         modules-left = builtins.map (x: x.moduleName) lModules;
         modules-right = builtins.map (x: x.moduleName) rModules;
