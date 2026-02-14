@@ -38,8 +38,6 @@
             Explicit declaration of additional bars
             Uses the same format as the integrationConfig, without the
             additionalBars or style attributes
-            Any modules declared inside the additional bars should be
-            unique
 
         style: fn theme -> str optional
             A function activeTheme -> waybar css
@@ -64,15 +62,16 @@ let
         modules-left = builtins.map (x: x.moduleName) lModules;
         modules-right = builtins.map (x: x.moduleName) rModules;
         modules-center = builtins.map (x: x.moduleName) cModules;
-    };
+    } //
+    # Generate module definitions
+    (
+        lib.attrsets.genAttrs' (lModules ++ rModules ++ cModules)
+                               (s: lib.nameValuePair (s.moduleName) (builtins.removeAttrs s [ "moduleName" ]))
+    );
 in {
     attrpath = [ "programs" "waybar" ];
 
-    realise = activeTheme: integrationConfig: let
-        lModules = withDefault integrationConfig [ "leftModules" ] [];
-        rModules = withDefault integrationConfig [ "rightModules" ] [];
-        cModules = withDefault integrationConfig [ "centreModules" ] [];
-    in {
+    realise = activeTheme: integrationConfig: {
         settings = {
             mainBar = toBar integrationConfig;
         } //
@@ -80,31 +79,18 @@ in {
         (
             builtins.mapAttrs (name: value: toBar value)
                               (withDefault integrationConfig [ "additionalBars" ] { })
-        ) //
-        # Collect module definitions from additional bars
-        (
-            lib.attrsets.genAttrs' (
-                                       lib.foldlAttrs (acc: name: value: acc ++
-                                                                         withDefault value [ "leftModules" ] [] ++
-                                                                         withDefault value [ "rightModules" ] [] ++
-                                                                         withDefault value [ "centreModules" ] []
-                                                      ) [] (withDefault integrationConfig [ "additionalBars" ] { })
-                                   )
-                                   (s: lib.nameValuePair (s.moduleName) (builtins.removeAttrs s [ "moduleName" ]))
-        ) //
-        # Collect top-level module definitions (done last to give priority over additional bar overlap)
-        (
-            lib.attrsets.genAttrs' (lModules ++ rModules ++ cModules)
-                                   (s: lib.nameValuePair (s.moduleName) (builtins.removeAttrs s [ "moduleName" ]))
         );
 
         style = if integrationConfig ? "style" then (integrationConfig.style activeTheme) else ''
             * {
                 font-family: ${activeTheme.fontMono};
-                font-size: ${toString activeTheme.fontSizeLarge};
+                font-size: ${toString activeTheme.fontSizeLarge} px;
+            }
 
-                background-color: transparent;
-                color: #${activeTheme.colour.mainFg};
+            button {
+                border: none;
+                border-radius: 0;
+                padding: 0px 10px;
             }
 
             window#waybar {
@@ -112,12 +98,11 @@ in {
                 color: #${activeTheme.colour.mainFg};
             }
 
-            #workspaces button.focused {
-                background-color: #${activeTheme.colour.accentBg};
-                color: #${activeTheme.colour.accentFg};
+            #workspaces button.focused:hover {
+                color: #${activeTheme.colour.mainFg};
             }
 
-            #workspaces button.urgent {
+            #workspaces button.focused, #workspaces button.urgent {
                 background-color: #${activeTheme.colour.accentBg};
                 color: #${activeTheme.colour.accentFg};
             }
