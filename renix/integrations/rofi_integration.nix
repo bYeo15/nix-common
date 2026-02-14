@@ -24,7 +24,7 @@ in {
         "*" = {
             font = "${activeTheme.fontMono} ${toString activeTheme.fontSizeNormal}";
 
-            background-color = mkLiteral "#${activeTheme.colour.mainBg}";
+            background-color = mkLiteral "transparent";
             text-color = mkLiteral "#${activeTheme.colour.mainFg}";
         } // ((withDefault integrationConfig [ "baseStyle" ] (_: { })) activeTheme);
     } // ((withDefault integrationConfig [ "elemStyle" ] (_: { })) activeTheme);
