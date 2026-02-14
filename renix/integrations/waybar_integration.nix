@@ -68,13 +68,13 @@ let
         layer = "top";
         mode = withDefault config [ "barMode" ] "dock";
         position = withDefault config [ "barPosition" ] "top";
-        height = withDefault config [ "barHeight" ] 30;
+        height = withDefault config [ "barHeight" ] 40;
         spacing = withDefault config [ "moduleSpacing" ] 20;
 
         margin-left = withDefault config [ "barLMargin" ] 0;
         margin-right = withDefault config [ "barRMargin" ] 0;
-        margin-top = withDefault config [ "barTMargin" ] 2;
-        margin-bottom = withDefault config [ "barBMargin" ] 2;
+        margin-top = withDefault config [ "barTMargin" ] 0;
+        margin-bottom = withDefault config [ "barBMargin" ] 0;
 
         modules-left = builtins.map (x: x.moduleName) lModules;
         modules-right = builtins.map (x: x.moduleName) rModules;
