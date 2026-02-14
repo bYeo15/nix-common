@@ -84,7 +84,7 @@ in {
         style = if integrationConfig ? "style" then (integrationConfig.style activeTheme) else ''
             * {
                 font-family: ${activeTheme.fontMono};
-                font-size: ${toString activeTheme.fontSizeLarge} px;
+                font-size: ${toString activeTheme.fontSizeLarge}px;
             }
 
             button {
