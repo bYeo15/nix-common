@@ -138,6 +138,8 @@ in {
             waybar = {
                 enable = true;
 
+                barRMargin = 5;
+
                 leftModules = [
                     {
                         moduleName = "sway/workspaces";

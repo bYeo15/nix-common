@@ -13,6 +13,13 @@
         barHeight: int optional
             Sets the height of the main bar
 
+
+        barLMargin: int optional
+            sets the left margin of the bar
+
+        barRMargin: int optional
+            sets the right margin of the bar
+
         moduleSpacing: int optional
             Sets the spacing between modules
 
@@ -57,7 +64,10 @@ let
         mode = withDefault config [ "barMode" ] "dock";
         position = withDefault config [ "barPosition" ] "top";
         height = withDefault config [ "barHeight" ] 30;
-        spacing = withDefault config [ "moduleSpacing" ] 5;
+        spacing = withDefault config [ "moduleSpacing" ] 20;
+
+        margin-left = withDefault config [ "barLMargin" ] 0;
+        margin-right = withDefault config [ "barRMargin" ] 0;
 
         modules-left = builtins.map (x: x.moduleName) lModules;
         modules-right = builtins.map (x: x.moduleName) rModules;
@@ -93,7 +103,7 @@ in {
                 padding: 0px 10px;
             }
 
-            window#waybar {
+            window#waybar, tooltip {
                 background-color: #${activeTheme.colour.mainBg};
                 color: #${activeTheme.colour.mainFg};
             }
