@@ -9,7 +9,9 @@ pkgs.mkShell {
 
     shellHook = ''
         SAVED_PS1="$PS1"
-        source venv/bin/activate
+        if [[ -d venv ]]; then
+            source venv/bin/activate
+        fi
         PS1="$SAVED_PS1"
     '';
 }
