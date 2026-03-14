@@ -104,6 +104,10 @@ in {
                 font-size: ${toString activeTheme.fontSizeLarge}px;
             }
 
+            label.module {
+                padding: 0px 10px;
+            }
+
             button {
                 border: none;
                 border-radius: 0;

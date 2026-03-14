@@ -27,22 +27,29 @@
             The path to the desktop background image
 
         fragment: attrset optional
-            Requires `glpaper` to function (not automatically enabled)
-
             enable: bool
                 Use a shader as a background?
+
+            command: str
+                Base command to use, plus any shared arguments
 
             shader: path
                 The path to the shader to use
 
             displays: list<str>
-                The names of the displays to render the shader to
+                List of per-display arguments (typically, display name + per-display flags)
+
+            compose: fn str -> fn path -> fn str -> str
+                Function that builds a full background command from command, shader and display
+                Defaults to concat `{command} {display} {shader}`
 */
 
 { lib, pkgs, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;
+
+    defaultCompose = command: shader: display: "${command} ${display} ${shader}";
 in {
     attrpath = [ "wayland" "windowManager" "sway" "config" ];
     realise = activeTheme: integrationConfig: {
@@ -97,8 +104,8 @@ in {
 
         output = { "*" = { bg = "${integrationConfig.background} fill"; }; };
 
-        startup = if integrationConfig ? fragment && integrationConfig.fragment.enable then (builtins.map (
-            v: { always = false; command = "glpaper -F ${v} ${integrationConfig.fragment.shader}"; }
-        ) integrationConfig.fragment.displays) else [ ];
+        startup = if integrationConfig ? fragment && integrationConfig.fragment.enable then with integrationConfig; (builtins.map (
+            v: { always = false; command = (withDefault fragment [ "compose" ] defaultCompose) fragment.command fragment.shader v; }
+        ) fragment.displays) else [ ];
     };
 }
