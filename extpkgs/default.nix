@@ -1,5 +1,3 @@
-{ pkgs, ... }:
+{ pkgs, lib ? pkgs.lib, ... }:
 
-{
-    glbg = pkgs.callPackage (import ./glbg.nix) { };
-}
+import ./pkg_pins.nix { inherit pkgs lib; }

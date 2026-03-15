@@ -1,0 +1,18 @@
+{
+  "pins": {
+    "glbg": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "bYeo15",
+        "repo": "glbg"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a390b1b3993c2627bf4468b3eb5b68725ba49364",
+      "url": "https://github.com/bYeo15/glbg/archive/a390b1b3993c2627bf4468b3eb5b68725ba49364.tar.gz",
+      "hash": "sha256-OZ7PmSUoaG1n1Lyjuh/rACgTPnEMa0Zqpb0G67kdz0M="
+    }
+  },
+  "version": 7
+}

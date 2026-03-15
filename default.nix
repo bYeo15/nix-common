@@ -3,7 +3,9 @@ let
 in {
     # Context-agnostic extension to the standard libraries
     extlib = { sources, pkgs, lib, ... }: import ./extlib { inherit sources; inherit pkgs; inherit lib; };
-    extpkgs = { pkgs, ... }: import ./extpkgs { inherit pkgs; };
+
+    # Extension to nixpkgs
+    extpkgs = { pkgs, lib, ... }: import ./extpkgs { inherit pkgs lib; };
 
 
     data = [
