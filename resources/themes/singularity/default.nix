@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, extpkgs, ... }:
 
 let
     inherit (config.lib.formats.rasi) mkLiteral;
@@ -117,7 +117,7 @@ in {
 
                 fragment = {
                     enable = true;
-                    command = "${lib.getExe pkgs.glbg} --fps 30";
+                    command = "${lib.getExe extpkgs.glbg} --fps 30";
                     shader = ./pix_fragment;
                     displays = [ "eDP-1" "HDMI-A-1" "DP-7" "DP-8 --scale 0.6" "DP-9" ];
                 };
