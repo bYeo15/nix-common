@@ -104,10 +104,6 @@ in {
                 font-size: ${toString activeTheme.fontSizeLarge}px;
             }
 
-            label.module {
-                padding: 0px 10px;
-            }
-
             button {
                 border: none;
                 border-radius: 0;
@@ -117,6 +113,10 @@ in {
             window#waybar, tooltip {
                 background-color: #${activeTheme.colour.mainBg};
                 color: #${activeTheme.colour.mainFg};
+            }
+
+            .modules-right {
+                margin-right: 10px;
             }
 
             #workspaces button.focused:hover {
