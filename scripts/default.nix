@@ -8,12 +8,12 @@ let
         "quicksearch"
         "volctl"
     ];
-    scriptListing = scripts: lib.map scripts (v:
+    scriptListing = scripts: lib.map (v:
        assert (lib.assertMsg
            (lib.lists.elem v allScripts)
-           ("Script '${v}' unknown, should be among:\n" + (lib.concatMapStrings (v: "\t" + v + "\n") allScripts)));
+           ("Script '${v}' unknown, should be among:\n" + (lib.concatMapStrings (v: v + "\n") allScripts)));
        makeScript (import (./. + "/${v}.nix"))
-    );
+    ) scripts;
 
     cfg = config.extscripts;
 in {
@@ -21,11 +21,11 @@ in {
         enable = mkEnableOption "extra scripts";
 
         scripts = mkOption {
-            type = listOf string;
+            type = listOf str;
             description = "A list of scripts to enable (by name)";
             default = [ ];
         };
     };
 
-    home.packages = lib.mkIf cfg.enable scriptListing cfg.scripts;
+    config.home.packages = lib.mkIf cfg.enable (scriptListing cfg.scripts);
 }
