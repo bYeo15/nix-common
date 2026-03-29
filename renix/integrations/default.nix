@@ -5,6 +5,7 @@ let
         "cursor"
         "helix"
         "mako"
+        "qutebrowser"
         "rofi"
         "sway"
         "swaylock"
