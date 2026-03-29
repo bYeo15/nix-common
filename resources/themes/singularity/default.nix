@@ -41,6 +41,12 @@ in {
                 actionableAnchor = "top-right";
             };
 
+            qutebrowser = {
+                enable = true;
+                tabIcons = false;
+                tabPosition = "top";
+            };
+
             rofi = {
                 enable = true;
 

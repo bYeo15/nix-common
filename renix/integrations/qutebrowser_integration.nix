@@ -254,10 +254,10 @@ in {
 
         fonts = {
             default_family = activeTheme.fontMono;
-            default_size = "${toString activeTheme.fontSizeNormal}px";
+            default_size = "${toString activeTheme.fontSizeLarge}px";
 
             web.size = {
-                default_fixed = activeTheme.fontSizeNormal;
+                default_fixed = activeTheme.fontSizeLarge;
                 minimum = activeTheme.fontSizeSmall;
                 minimum_logical = activeTheme.fontSizeSmall;
             };
