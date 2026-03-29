@@ -11,8 +11,13 @@
         runtimeInputs = script.deps;
         excludeShellChecks = if script ? skipChecks then script.skipChecks else [ ];
     };
-in pkgs.symlinkJoin {
+in (pkgs.symlinkJoin {
     inherit (scriptPkg) meta;
     name = script.name;
     paths = [ scriptPkg ] ++ lib.optionals (script ? completions) [ completionPkg ];
-}
+    postBuild = lib.optionalString (script ? completions) ''
+        installShellCompletion --bash "$out/share/bash-completion/${script.name}.bash"
+    '';
+}).overrideAttrs (final: prev: {
+    nativeBuildInputs = lib.optionals (script ? completions) [ pkgs.installShellFiles ];
+})
