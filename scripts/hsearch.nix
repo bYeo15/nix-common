@@ -16,6 +16,8 @@ let
             cond = lib.any (x: x.value.enable) (lib.attrsToList config.wayland.windowManager);
         }
     ];
+
+    historyFile = if isNull config.programs.bash.historyFile then "${config.home.homeDirectory}/.bash_history" else config.programs.bash.historyFile;
 in {
     name = "hsearch";
 
@@ -25,10 +27,10 @@ in {
     ];
 
     src = ''
-        HIST="$(cat "$HISTFILE")"
+        HIST="$(cat "${historyFile}")"
 
         if [[ $# -ge 1 ]]; then
-            HIST="$(grep -- "$@" <<< "$HIST")"
+            HIST="$(grep -- "$*" <<< "$HIST")"
         fi
 
         ${launcher.target} <<< "$HIST" | ${clipboard.target}
