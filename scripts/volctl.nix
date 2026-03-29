@@ -26,16 +26,14 @@
                 sed 's/.*[0-9]*\. //' | sed 's/ *$//')")
 
         if [[ "$1" == "list" ]]; then
-            for t in "''${AVAILABLE_TARGETS[*]}"; do
-                echo "$t"
-            done
+            echo "''${AVAILABLE_TARGETS[*]}"
             exit 0
         elif [[ "$1" == "OUT" ]]; then
             TARGET="@DEFAULT_SINK@"
         elif [[ "$1" == "IN" ]]; then
             TARGET="@DEFAULT_SOURCE@"
         else
-            TARGET="$(echo "$AVAILABLE_TARGETS" | grep -i "$1")"
+            TARGET="$(echo "''${AVAILABLE_TARGETS[*]}" | grep -i "$1")"
             if [[ "$?" -ne 0 ]]; then
                 echo "Could not find target $1"
                 exit 1
@@ -53,6 +51,8 @@
             fi
         fi
     '';
+
+    skipChecks = [ "SC2181" ];
 
     completions = ''
         #!${pkgs.runtimeShell}

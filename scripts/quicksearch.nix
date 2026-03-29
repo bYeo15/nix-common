@@ -40,10 +40,10 @@ in {
 
         if [[ -z $SEARCH ]]; then exit 1; fi
 
-        if [[ $SEARCH ~= $REGEX_SITE ]]; then
-            exec ${browser.target} $SEARCH
+        if [[ $SEARCH =~ $REGEX_SITE ]]; then
+            exec ${browser.target} "$SEARCH"
         else
-            exec ${browser.target} ${engine}$SEARCH
+            exec ${browser.target} "${engine}$SEARCH"
         fi
     '';
 }
