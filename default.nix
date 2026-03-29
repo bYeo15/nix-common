@@ -14,6 +14,7 @@ in {
 
     home = [
         ./renix
+        ./scripts
     ] ++ resources.homeResources;
 
     nixos = [
