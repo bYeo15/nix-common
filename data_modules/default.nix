@@ -2,6 +2,7 @@
 
 {
     imports = [
+        ./browserData.nix
         ./devshells.nix
         ./netConn.nix
         ./sshConn.nix
