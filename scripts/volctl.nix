@@ -51,7 +51,7 @@
         fi
     '';
 
-    skipChecks = [ "SC2181" ];
+    skipChecks = [ "SC2181" "SC2001" ];
 
     completions = ''
         #!${pkgs.runtimeShell}

@@ -50,4 +50,7 @@ in {
     '' else ''
         exec ${browser.target} "$SEARCH"
     '');
+
+    # Skip unused check as regex is not used when a search engine isn't required
+    skipChecks = [ "SC2034" ];
 }
