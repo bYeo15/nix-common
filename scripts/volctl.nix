@@ -22,29 +22,28 @@
 
         AVAILABLE_TARGETS=("$(wpctl status | \
                 awk '/Streams/ { flag=1; next } /Video/ { flag = 0; exit } flag' | \
-                grep -e "\[active\]" -e "\[paused\]" -e "\[init\]" -B 1 | grep -v -e "\[active\]" -e "\[paused\]" -e "\[init\]" | \
-                sed 's/.*[0-9]*\. //' | sed 's/ *$//')")
+                grep -e "\[active\]" -e "\[paused\]" -e "\[init\]" -B 1 | grep -v -e "\[active\]" -e "\[paused\]" -e "\[init\]")")
 
         if [[ "$1" == "list" ]]; then
-            echo "''${AVAILABLE_TARGETS[*]}"
+            echo "''${AVAILABLE_TARGETS[*]}" | sed 's/.*[0-9]*\. //'
             exit 0
         elif [[ "$1" == "OUT" ]]; then
             TARGET="@DEFAULT_SINK@"
         elif [[ "$1" == "IN" ]]; then
             TARGET="@DEFAULT_SOURCE@"
         else
-            TARGET="$(echo "''${AVAILABLE_TARGETS[*]}" | grep -i "$1")"
-            if [[ "$?" -ne 0 ]]; then
+            TARGET="$(echo "''${AVAILABLE_TARGETS[*]}" | grep -iwF "$1" | grep -o '[0-9]*')"
+            if [[ -z $TARGET ]]; then
                 echo "Could not find target $1"
                 exit 1
             fi
         fi
 
         if [[ -z "$2" ]]; then
-            wpctl set-mute "$TARGET" "''${2}%"
+            wpctl set-mute "$TARGET" toggle
         else
             if [ "$2" -eq "$2" ] 2>/dev/null; then
-                wpctl set-volume "$TARGET" "''${2}%"
+                wpctl set-volume "$TARGET" "$2%"
             else
                 echo "Volume ($2) is not a number"
                 exit 1

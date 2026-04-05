@@ -10,6 +10,7 @@
         text = script.src;
         runtimeInputs = script.deps;
         excludeShellChecks = if script ? skipChecks then script.skipChecks else [ ];
+        bashOptions = [ ];
     };
 in (pkgs.symlinkJoin {
     inherit (scriptPkg) meta;

@@ -6,12 +6,14 @@ let
             pkg = config.programs.qutebrowser.package;
             target = "qutebrowser --target private-window";
             cond = config.programs.qutebrowser.enable;
+            needsEngine = false;
         }
 
         {
             pkg = config.programs.firefox.package;
             target = "firefox --private-window";
             cond = config.programs.firefox.enable;
+            needsEngine = true;
         }
     ];
 
@@ -23,7 +25,7 @@ let
         }
     ];
 
-    # FUTURE: infer from config
+    # FUTURE: infer from config?
     engine = "https://noai.duckduckgo.com/?q=";
 in {
     name = "quicksearch";
@@ -39,11 +41,13 @@ in {
         SEARCH="$(${launcher.target})"
 
         if [[ -z $SEARCH ]]; then exit 1; fi
-
+    '' + (if browser.needsEngine then ''
         if [[ $SEARCH =~ $REGEX_SITE ]]; then
             exec ${browser.target} "$SEARCH"
         else
             exec ${browser.target} "${engine}$SEARCH"
         fi
-    '';
+    '' else ''
+        exec ${browser.target} "$SEARCH"
+    '');
 }
