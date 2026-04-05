@@ -3,24 +3,24 @@
 let
     inherit (config.lib.formats.rasi) mkLiteral;
 in {
-    config.renix.themes."singularity" = {
-        fontMono = "GohuFont";
+    config.renix.themes."terminal" = {
+        fontMono = "Tamzen";
         fontSizeNormal = 11;
         fontSerif = "FreeSerif";
         fontSans = "FreeSans";
 
         colour = {
-            mainBg = "121216";
-            accentBg = "e8e6e1";
-            mainFg = "e8e6e1";
-            accentFg = "121216";
+            mainBg = "282828";
+            accentBg = "282828";
+            mainFg = "66ff66";
+            accentFg = "ffb000";
         };
 
         termColour = {
-            mainBg = "232";
-            accentBg = "233";
-            mainFg = "252";
-            accentFg = "251";
+            mainBg = "238";
+            accentBg = "237";
+            mainFg = "40";
+            accentFg = "214";
         };
 
         integrations = {
@@ -58,8 +58,8 @@ in {
 
                 elemStyle = activeTheme: {
                     "window" = {
-                        location = mkLiteral "center";
-                        width = 720;
+                        location = mkLiteral "south west";
+                        width = 300;
                         height = 720;
                         background-color = mkLiteral "#${activeTheme.colour.mainBg}";
                     };
@@ -123,8 +123,8 @@ in {
 
                 fragment = {
                     enable = true;
-                    command = "${lib.getExe extpkgs.glbg} --fps 30 --sleep 3";
-                    shader = ./pix_fragment;
+                    command = "${lib.getExe extpkgs.glbg} --fps 16 --sleep 3";
+                    shader = ./fragment;
                     displays = [ "eDP-1" "HDMI-A-1" "DP-7" "DP-8 --scale 0.6" "DP-9" ];
                 };
 
@@ -144,6 +144,22 @@ in {
 
             waybar = {
                 enable = true;
+
+                additionalBars = {
+                    "windows" = {
+                        barPosition = "bottom";
+
+                        leftModules = [
+                            {
+                                moduleName = "sway/workspaces";
+                                allOutputs = true;
+                                format = "{name}: {windows}";
+                                format-window-separator = ", ";
+                                window-rewrite-default = "{name}";
+                            }
+                        ];
+                    };
+                };
 
                 leftModules = [
                     {
