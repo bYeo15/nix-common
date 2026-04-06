@@ -6,12 +6,13 @@ in {
     config.renix.themes."terminal" = {
         fontMono = "Tamzen";
         fontSizeNormal = 11;
+        fontSizeLarge = 16;
         fontSerif = "FreeSerif";
         fontSans = "FreeSans";
 
         colour = {
             mainBg = "282828";
-            accentBg = "282828";
+            accentBg = "202020";
             mainFg = "66ff66";
             accentFg = "ffb000";
         };
@@ -145,22 +146,6 @@ in {
             waybar = {
                 enable = true;
 
-                additionalBars = {
-                    "windows" = {
-                        barPosition = "bottom";
-
-                        leftModules = [
-                            {
-                                moduleName = "sway/workspaces";
-                                allOutputs = true;
-                                format = "{name}: {windows}";
-                                format-window-separator = ", ";
-                                window-rewrite-default = "{name}";
-                            }
-                        ];
-                    };
-                };
-
                 leftModules = [
                     {
                         moduleName = "sway/workspaces";
@@ -186,8 +171,8 @@ in {
                         moduleName = "idle_inhibitor";
                         format = "{icon}";
                         format-icons = {
-                            activated = "‹o›";
-                            deactivated = "‹x›";
+                            activated = "(o)";
+                            deactivated = "(x)";
                         };
                     }
                 ];
