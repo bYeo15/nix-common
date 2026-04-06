@@ -110,8 +110,16 @@ in {
                 padding: 0px 10px;
             }
 
-            window#waybar, tooltip {
+            window#waybar {
                 background-color: #${activeTheme.colour.mainBg};
+                color: #${activeTheme.colour.mainFg};
+            }
+
+            tooltip {
+                background-color: #${activeTheme.colour.mainBg};
+            }
+
+            tooltip label {
                 color: #${activeTheme.colour.mainFg};
             }
 
@@ -119,11 +127,15 @@ in {
                 margin-right: 10px;
             }
 
-            #workspaces button.focused:hover {
+            #workspaces button {
                 color: #${activeTheme.colour.mainFg};
             }
 
-            #workspaces button.focused, #workspaces button.urgent {
+            window#waybar #workspaces button.focused:hover {
+                color: #${activeTheme.colour.mainFg};
+            }
+
+            window#waybar #workspaces button.focused, #workspaces button.urgent {
                 background-color: #${activeTheme.colour.accentBg};
                 color: #${activeTheme.colour.accentFg};
             }
