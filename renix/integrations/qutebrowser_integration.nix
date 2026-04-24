@@ -9,12 +9,43 @@
 
         tabPosition: str optional
             one of "top" "bottom" "left" "right"
+
+        forceFont: bool optional
+            if true, will clobber all webfonts with
+            a custom stylesheet forcing the use of the
+            default monospace font
+
+        startPage: attrset optional
+            configuration for the starting page;
+            source: fn theme -> str
+                A function that generates html for a given theme
+
+            style: fn theme -> str
+                A function that generates css for a given theme
+
+            aux: path<directory>
+                Auxilary directory to merge into file tree (eg. images, js)
 */
 
-{ extlib, ... }:
+{ pkgs, lib, extlib, ... }:
 
 let
     withDefault = extlib.withDefault;
+
+    # TODO : More stylesheets?
+    # TODO : Does this work w/ oft fonts?
+    forceFontStylesheet = activeTheme: pkgs.writeTextFile {
+        name = "qutebrowser_force_font.css";
+        text = "* { font-family: '${activeTheme.fontMono}' !important";
+    };
+
+    mergedStartPage = startPage: activeTheme: let
+        startSource = pkgs.writeText "qutebrowser_startpage.html" (startPage.source activeTheme);
+        startStyle = pkgs.writeText "qutebrowser_startpage.css" (startPage.style activeTheme);
+    in pkgs.symlinkJoin {
+        name = "qutebrowser_start_page";
+        paths = [ startSource startStyle ] ++ (if (startPage ? "aux") then [ startPage.aux ] else []);
+    };
 in {
     attrpath = [ "programs" "qutebrowser" "settings" ];
 
@@ -262,5 +293,18 @@ in {
                 minimum_logical = activeTheme.fontSizeSmall;
             };
         };
+
+        content.user_stylesheets = if (withDefault integrationConfig [ "forceFont" ] false) then [
+            (forceFontStylesheet activeTheme)
+        ] else [];
+
+        url = if (integrationConfig ? "startPage") then let
+            inherit (integrationConfig) startPage;
+            startPageDrv = mergedStartPage startPage activeTheme;
+            startPageUri = "file://${startPageDrv}/qutebrowser_startpage.html";
+        in {
+            start_pages = [ startPageUri ];
+            default_page = startPageUri;
+        } else {};
     };
 }
