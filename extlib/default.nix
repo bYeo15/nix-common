@@ -7,4 +7,6 @@
 
     makeHome = import ./makeHome.nix moduleArgs;
     makeHost = import ./makeHost.nix moduleArgs;
+
+    colourUtils = import ./colourUtils.nix moduleArgs;
 }
