@@ -76,14 +76,14 @@ let
         margin-top = withDefault config [ "barTMargin" ] 0;
         margin-bottom = withDefault config [ "barBMargin" ] 0;
 
-        modules-left = builtins.map (x: x.moduleName) lModules;
-        modules-right = builtins.map (x: x.moduleName) rModules;
-        modules-center = builtins.map (x: x.moduleName) cModules;
+        modules-left = lib.map (x: x.moduleName) lModules;
+        modules-right = lib.map (x: x.moduleName) rModules;
+        modules-center = lib.map (x: x.moduleName) cModules;
     } //
     # Generate module definitions
     (
         lib.attrsets.genAttrs' (lModules ++ rModules ++ cModules)
-                               (s: lib.nameValuePair (s.moduleName) (builtins.removeAttrs s [ "moduleName" ]))
+                               (s: lib.nameValuePair (s.moduleName) (lib.removeAttrs s [ "moduleName" ]))
     );
 in {
     attrpath = [ "programs" "waybar" ];
@@ -94,7 +94,7 @@ in {
         } //
         # Generate additional bars
         (
-            builtins.mapAttrs (name: value: toBar value)
+            lib.mapAttrs (name: value: toBar value)
                               (withDefault integrationConfig [ "additionalBars" ] { })
         );
 
