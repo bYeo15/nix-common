@@ -1,3 +1,10 @@
+{ extlib, ... }: let
+    inherit (extlib.colourUtils) rgb255ToFloat hexToRgb rgbFloatToVec4;
+    hexToVec4 = colour: rgbFloatToVec4 (rgb255ToFloat (hexToRgb colour));
+in activeTheme: let
+    col_bg = hexToVec4 activeTheme.colour.mainBg;
+    col_fg = hexToVec4 activeTheme.colour.mainFg;
+in ''
 #version 330
 
 uniform vec2 resolution;
@@ -9,8 +16,8 @@ const float PI = 3.14159265;
 #define PIXELATION 1
 #define PIX_RES 150.0
 
-#define COL_BG vec4(40.0 / 255.0, 40.0 / 255.0, 40.0 / 255.0, 1.0)
-#define COL_MAIN vec4(102.0 / 255.0, 1.0, 102.0 / 255.0, 1.0)
+#define COL_BG ${col_bg}
+#define COL_MAIN ${col_fg}
 
 
 float linesegdist(vec2 p, vec2 a, vec2 b)
@@ -125,3 +132,4 @@ void main(void)
 
     gl_FragColor = color;
 }
+''

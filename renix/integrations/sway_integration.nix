@@ -33,8 +33,8 @@
             command: str
                 Base command to use, plus any shared arguments
 
-            shader: path
-                The path to the shader to use
+            shader: fn theme -> str
+                A function creating a themed fragment shader
 
             displays: list<str>
                 List of per-display arguments (typically, display name + per-display flags)
@@ -50,6 +50,8 @@ let
     withDefault = extlib.withDefault;
 
     defaultCompose = command: shader: display: "${command} ${display} ${shader}";
+
+    mkShader = activeTheme: fragmentDef: pkgs.writeText "fragment" (fragmentDef activeTheme);
 in {
     attrpath = [ "wayland" "windowManager" "sway" "config" ];
     realise = activeTheme: integrationConfig: {
@@ -104,8 +106,12 @@ in {
 
         output = { "*" = { bg = "${integrationConfig.background} fill"; }; };
 
-        startup = if integrationConfig ? fragment && integrationConfig.fragment.enable then with integrationConfig; (builtins.map (
-            v: { always = false; command = (withDefault fragment [ "compose" ] defaultCompose) fragment.command fragment.shader v; }
+        startup = if integrationConfig ? fragment && integrationConfig.fragment.enable then with integrationConfig; (lib.map (
+            v: {
+                always = false;
+                command = (withDefault fragment [ "compose" ] defaultCompose)
+                    fragment.command (mkShader activeTheme fragment.shader) v;
+            }
         ) fragment.displays) else [ ];
     };
 }

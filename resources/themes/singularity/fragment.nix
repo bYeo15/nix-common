@@ -1,11 +1,18 @@
+{ extlib, ... }: let
+    inherit (extlib.colourUtils) rgb255ToFloat hexToRgb rgbFloatToVec4;
+    hexToVec4 = colour: rgbFloatToVec4 (rgb255ToFloat (hexToRgb colour));
+in activeTheme: let
+    col_bg = hexToVec4 activeTheme.colour.mainBg;
+    col_fg = hexToVec4 activeTheme.colour.mainFg;
+in ''
 // SOURCE : https://www.shadertoy.com/view/3csSWB
 
 uniform float time;
 uniform float scale;
 uniform vec2 resolution;
 
-#define COL_BG vec4(0.07058, 0.07058, 0.08627, 1.0)
-#define COL_MAIN vec4(0.90980, 0.90196, 0.88235, 1.0)
+#define COL_BG ${col_bg}
+#define COL_MAIN ${col_fg}
 
 #define PIX_FACTOR (72.0)
 #define PIX_BLEND_FACTOR (0.75)
@@ -71,3 +78,4 @@ void main(void) {
 
     gl_FragColor = col;
 }
+''

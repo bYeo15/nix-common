@@ -1,7 +1,8 @@
-{ config, lib, pkgs, extpkgs, ... }:
+{ config, lib, pkgs, extpkgs, ... } @ moduleArgs:
 
 let
     inherit (config.lib.formats.rasi) mkLiteral;
+    terminalFragment = import ./fragment.nix moduleArgs;
 in {
     config.renix.themes."terminal" = {
         fontMono = "Tamzen";
@@ -125,7 +126,7 @@ in {
                 fragment = {
                     enable = true;
                     command = "${lib.getExe extpkgs.glbg} --fps 16 --sleep 3";
-                    shader = ./fragment;
+                    shader = terminalFragment;
                     displays = [ "eDP-1" "HDMI-A-1" "DP-7" "DP-8 --scale 0.6" "DP-9" ];
                 };
 
