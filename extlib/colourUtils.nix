@@ -50,5 +50,5 @@
         b = rgb.b / 255.0;
     };
 
-    rgbFloatToVec4 = rgb: "vec4(${lib.toString rgb.r}, ${lib.toString rgb.g}), ${lib.toString rgb.b}, 1.0)";
+    rgbFloatToVec4 = rgb: "vec4(${lib.toString rgb.r}, ${lib.toString rgb.g}, ${lib.toString rgb.b}, 1.0)";
 }
