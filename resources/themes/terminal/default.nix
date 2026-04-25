@@ -47,7 +47,6 @@ in {
                 enable = true;
                 tabIcons = false;
                 tabPosition = "top";
-                forceFont = true;
             };
 
             rofi = {
