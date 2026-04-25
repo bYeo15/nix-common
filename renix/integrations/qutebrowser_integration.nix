@@ -295,7 +295,7 @@ in {
         };
 
         content.user_stylesheets = if (withDefault integrationConfig [ "forceFont" ] false) then [
-            "file://${(forceFontStylesheet activeTheme)}"
+            "${(forceFontStylesheet activeTheme)}"
         ] else [];
 
         url = if (integrationConfig ? "startPage") then let
