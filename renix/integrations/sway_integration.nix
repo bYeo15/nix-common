@@ -23,8 +23,9 @@
         floatingTitle: bool optional
             Enable titlebar for floating windows?
 
-        background: path
+        background: path optional
             The path to the desktop background image
+            If not given, solid colour is used
 
         fragment: attrset optional
             enable: bool
@@ -104,9 +105,15 @@ in {
             titlebar = withDefault integrationConfig [ "floatingTitle" ] false;
         };
 
-        output = { "*" = { bg = "${integrationConfig.background} fill"; }; };
+        output = {
+            "*" = {
+                bg = if (integrationConfig ? "background")
+                    then "${integrationConfig.background} fill"
+                    else "#${activeTheme.colour.mainBg} solid_color";
+            };
+        };
 
-        startup = if integrationConfig ? fragment && integrationConfig.fragment.enable then with integrationConfig; (lib.map (
+        startup = if integrationConfig ? "fragment" && integrationConfig.fragment.enable then with integrationConfig; (lib.map (
             v: {
                 always = false;
                 command = (withDefault fragment [ "compose" ] defaultCompose)
