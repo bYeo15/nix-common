@@ -27,6 +27,12 @@
             The path to the desktop background image
             If not given, solid colour is used
 
+        startup: list optional
+            A list of applications to launch on startup (same format as Home Manager)
+
+        windowRules: list optional
+            A list of window rules to apply (same format as Home Manager)
+
         fragment: attrset optional
             enable: bool
                 Use a shader as a background?
@@ -98,6 +104,8 @@ in {
             border = withDefault integrationConfig [ "windowBorder" ] 0;
             titlebar = withDefault integrationConfig [ "windowTitle" ] false;
             hideEdgeBorders = withDefault integrationConfig [ "hideEdgeBorders" ] "smart";
+
+            commands = withDefault integrationConfig [ "windowRules" ] [ ];
         };
 
         floating = {
@@ -113,12 +121,12 @@ in {
             };
         };
 
-        startup = if integrationConfig ? "fragment" && integrationConfig.fragment.enable then with integrationConfig; (lib.map (
+        startup = (withDefault integrationConfig [ "startup" ] [ ]) ++ (if integrationConfig ? "fragment" && integrationConfig.fragment.enable then with integrationConfig; (lib.map (
             v: {
                 always = false;
                 command = (withDefault fragment [ "compose" ] defaultCompose)
                     fragment.command (mkShader activeTheme fragment.shader) v;
             }
-        ) fragment.displays) else [ ];
+        ) fragment.displays) else [ ]);
     };
 }
