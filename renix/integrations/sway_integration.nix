@@ -37,6 +37,10 @@
             Bar settings (same format as Home Manager), mainly intended to be used w/ waybar's ipc subscription
             Defaults to launching waybar
 
+        showHideBar: bool optional
+            If set, will only show the bar(s) when in a mode
+            Not used by renix, can instead be inspected by a user's keybind generation
+
         fragment: attrset optional
             enable: bool
                 Use a shader as a background?
