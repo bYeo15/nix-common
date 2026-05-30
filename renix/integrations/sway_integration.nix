@@ -65,29 +65,29 @@ in {
         colors = {
             focused = {
                 background = "#${activeTheme.colour.accentBg}";
-                border = "#${activeTheme.colour.accentBg}";
-                text = "#${activeTheme.colour.accentFg}";
+                border = "#${activeTheme.colour.accentFg}";
+                text = "#${activeTheme.colour.accentBg}";
                 indicator = "#${activeTheme.colour.accentBg}";
                 childBorder = "#${activeTheme.colour.accentBg}";
             };
             focusedInactive = {
                 background = "#${activeTheme.colour.mainBg}";
-                border = "#${activeTheme.colour.mainBg}";
-                text = "#${activeTheme.colour.mainFg}";
+                border = "#${activeTheme.colour.mainFg}";
+                text = "#${activeTheme.colour.mainBg}";
                 indicator = "#${activeTheme.colour.mainBg}";
                 childBorder = "#${activeTheme.colour.mainBg}";
             };
             unfocused = {
                 background = "#${activeTheme.colour.mainBg}";
-                border = "#${activeTheme.colour.mainBg}";
-                text = "#${activeTheme.colour.mainFg}";
+                border = "#${activeTheme.colour.mainFg}";
+                text = "#${activeTheme.colour.mainBg}";
                 indicator = "#${activeTheme.colour.mainBg}";
                 childBorder = "#${activeTheme.colour.mainBg}";
             };
             urgent = {
                 background = "#${activeTheme.colour.accentBg}";
-                border = "#${activeTheme.colour.accentBg}";
-                text = "#${activeTheme.colour.accentFg}";
+                border = "#${activeTheme.colour.accentFg}";
+                text = "#${activeTheme.colour.accentBg}";
                 indicator = "#${activeTheme.colour.accentBg}";
                 childBorder = "#${activeTheme.colour.accentBg}";
             };
