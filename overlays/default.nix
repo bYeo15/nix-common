@@ -1,0 +1,3 @@
+builtins.map import [
+    ./waybar
+]

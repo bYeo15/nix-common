@@ -1,0 +1,13 @@
+diff --git a/src/bar.cpp b/src/bar.cpp
+index 7ff73c4f..ca551d09 100644
+--- a/src/bar.cpp
++++ b/src/bar.cpp
+@@ -53,7 +53,7 @@ const Bar::bar_mode_map Bar::PRESET_MODES = {  //
+      {//
+       .layer = bar_layer::OVERLAY,
+       .exclusive = false,
+-      .passthrough = true,
++      .passthrough = false,
+       .visible = true}}};
+ 
+ const std::string Bar::MODE_DEFAULT = "default";
