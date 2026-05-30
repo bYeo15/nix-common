@@ -33,6 +33,10 @@
         windowRules: list optional
             A list of window rules to apply (same format as Home Manager)
 
+        bars: list optional
+            Bar settings (same format as Home Manager), mainly intended to be used w/ waybar's ipc subscription
+            Defaults to launching waybar
+
         fragment: attrset optional
             enable: bool
                 Use a shader as a background?
@@ -120,6 +124,14 @@ in {
                     else "#${activeTheme.colour.mainBg} solid_color";
             };
         };
+
+        bars = withDefault integrationConfig [ "bars" ] [
+                {
+                    id = "mainBar";
+                    command = "${lib.getExe pkgs.waybar}";
+                    mode = "dock";
+                }
+        ];
 
         startup = (withDefault integrationConfig [ "startup" ] [ ]) ++ (if integrationConfig ? "fragment" && integrationConfig.fragment.enable then with integrationConfig; (lib.map (
             v: {
