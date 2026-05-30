@@ -4,7 +4,7 @@
 
     Integration config is;
 
-        background: path
+        background: path optional
             The background image to use on the lockscreen
 */
 
@@ -24,7 +24,8 @@ in {
         separator-color = activeTheme.colour.accentBg;
         text-color = activeTheme.colour.mainFg;
 
-        image = "${integrationConfig.background}";
+        # Current swaylock module doesn't generate config entries that == false
+        image = withDefault integrationConfig [ "background" ] false;
 
         font = activeTheme.fontMono;
         font-size = activeTheme.fontSizeLarge;
