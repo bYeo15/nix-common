@@ -10,6 +10,12 @@
         barPosition: str optional
             Sets the location of the main bar
 
+        barPassthrough: bool optional
+            Enables/disables passthrough
+
+        barExclusive: bool optional
+            Enables/disables exclusive region
+
         barHeight: int optional
             Sets the height of the main bar
 
@@ -74,7 +80,9 @@ let
         layer = "top";
         ipc = config ? "ipcId";
         id = withDefault config [ "ipcId" ] null;
-        mode = withDefault config [ "barMode" ] "dock";
+        mode = withDefault config [ "barMode" ] null;
+        passthrough = withDefault config [ "barPassthrough" ] null;
+        exclusive = withDefault config [ "barExclusive" ] null;
         position = withDefault config [ "barPosition" ] "top";
         height = withDefault config [ "barHeight" ] null;
         width = withDefault config [ "barWidth" ] null;
