@@ -34,7 +34,7 @@ in {
 
             helix = {
                 enable = true;
-                helixBase = "carbonfox";
+                helixBase = "onelight";
             };
 
             mako = {
@@ -175,11 +175,11 @@ in {
                 ipcId = "mainBar";
 
                 barPosition = "left";
+                barExclusive = false;
+                barPassthrough = false;
 
-                barHeight = 720;
-                barWidth = 40;
-                barLMargin = 2;
-                moduleSpacing = 0;
+                barHeight = 1000;
+                barWidth = 25;
 
                 leftModules = [
                     {
@@ -219,7 +219,7 @@ in {
                         format = "{:%I\n%M}";
                         tooltip = true;
                         tooltip-format = "<tt><small>{calendar}</small></tt>";
-                        format-alt = "{:%Y\n%m\n%d}";
+                        format-alt = "{:%d\n%m\n%Y}";
                     }
 
                     {
@@ -235,21 +235,21 @@ in {
 
                     {
                         moduleName = "backlight";
-                        format = "L:{percent}";
+                        format = "{percent}%";
                         tooltip = false;
                     }
 
                     {
                         moduleName = "cpu";
-                        format = "C:{usage}%";
+                        format = "{usage}%";
                         tooltip = false;
                         on-click = runHtop;
                     }
 
                     {
                         moduleName = "memory";
-                        format = "M:{percentage}%";
-                        tooltip-format = "{used}/{avail}";
+                        format = "{percentage}%";
+                        tooltip-format = "{used}G / {avail}G";
                         on-click = runHtop;
                     }
 
@@ -275,20 +275,22 @@ in {
                     mediaBar = {
                         ipcId = "mediaBar";
 
-                        position = "bottom";
+                        barPosition = "bottom";
+                        barExclusive = false;
+                        barPassthrough = false;
 
                         barWidth = 500;
-                        barHeight = 40;
-                        barBMargin = 5;
-                        moduleSpacing = 0;
+                        barHeight = 25;
 
-                        centreModules = [
+                        leftModules = [
                             {
                                 moduleName = "custom/song_prev";
                                 format = "⏮";
                                 on-click = "playerctl previous";
                             }
+                        ];
 
+                        centreModules = [
                             {
                                 moduleName = "pulseaudio";
                                 format = "{volume} │ {format_source}";
@@ -311,9 +313,14 @@ in {
                                     "stopped" = "⏹";
                                 };
                                 on-click = "playerctl play-pause";
-                                on-right-click = "swaymsg [app_id=\"cmus\"] focus";
-                            }
+                                on-click-right = "swaymsg [app_id=\"cmus\"] focus";
 
+                                artist-len = 25;
+                                title-len = 50;
+                            }
+                        ];
+
+                        rightModules = [
                             {
                                 moduleName = "custom/song_next";
                                 format = "⏭";
@@ -326,33 +333,91 @@ in {
                 style = activeTheme: ''
                     * {
                         font-family: ${activeTheme.fontMono};
-                        font-size: ${toString activeTheme.fontSizeLarge}px;
+                        font-size: ${toString activeTheme.fontSizeNormal}px;
+                    }
+
+                    button {
+                        border: none;
+                        border-radius: 0;
+                        padding: 0px 0px;
+                    }
+
+                    tooltip {
+                        background-color: #${activeTheme.colour.mainBg};
+                        border: none;
+                        border-radius: 0;
+                    }
+
+                    tooltip label {
+                        color: #${activeTheme.colour.mainFg};
                     }
 
                     window#waybar {
                         background-color: #${activeTheme.colour.mainBg};
                         color: #${activeTheme.colour.mainFg};
                         border: 2px solid #${activeTheme.colour.accentBg};
+                        box-shadow: inset -2px 2px 0 0px #${activeTheme.colour.accentFg}, inset 2px -2px 0 0px #${activeTheme.colour.accentFg};
+                        margin: 5px;
                     }
 
                     #battery,
-                    #backlight
-                    #clock,
+                    #backlight,
                     #cpu,
-                    #idle_inhibitor,
                     #memory,
+                    #clock,
+                    #idle_inhibitor,
                     #network,
                     #mode,
                     #scratchpad,
                     #workspaces {
-                        margin-left: 4px;
-                        margin-right: 4px;
-                        margin-top: 2px;
-                        margin-bottom: 2px;
-                        padding-top: 8px;
-                        padding-bottom: 8px;
-                        border: 1px solid #${activeTheme.colour.accentBg};
-                        box-shadow: inset -2px 2px 0 0px #${activeTheme.colour.accentFg}, inset 2px -2px 0 0px #${activeTheme.colour.accentFg};
+                        margin-top: 3px;
+                        margin-bottom: 3px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        padding-left: 2px;
+                        padding-right: 2px;
+                        background-color: #${activeTheme.colour.accentBg};
+                        border: 1px solid #${activeTheme.colour.accentFg};
+                    }
+
+                    #backlight {
+                        border-bottom: 0px;
+                        margin-bottom: -2px;
+                    }
+
+                    #cpu {
+                        border-bottom: 0px;
+                        margin-bottom: -2px;
+                        border-top: 0px;
+                        margin-top: -2px;
+                    }
+
+                    #memory {
+                        border-top: 0px;
+                        margin-top: -2px;
+                    }
+
+                    #workspaces button {
+                        color: #${activeTheme.colour.mainFg};
+                    }
+
+                    window#waybar #workspaces button.focused:hover {
+                        color: #${activeTheme.colour.mainFg};
+                    }
+
+                    window#waybar #workspaces button.focused, #workspaces button.urgent {
+                        background-color: #${activeTheme.colour.accentBg};
+                        color: #${activeTheme.colour.accentFg};
+                    }
+
+                    .mainBar window#waybar {
+                        height: 1000px;
+                        min-height: 1000px;
+                    }
+
+                    .mediaBar window#waybar {
+                        width: 500px;
+                        min-width: 500px;
                     }
                 '';
             };
