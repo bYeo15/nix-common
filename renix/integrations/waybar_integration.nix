@@ -13,6 +13,9 @@
         barHeight: int optional
             Sets the height of the main bar
 
+        barWidth: int optional
+            Sets the width of the main bar
+
         barLMargin: int optional
             sets the left margin of the bar
 
@@ -68,7 +71,8 @@ let
         layer = "top";
         mode = withDefault config [ "barMode" ] "dock";
         position = withDefault config [ "barPosition" ] "top";
-        height = withDefault config [ "barHeight" ] 40;
+        height = withDefault config [ "barHeight" ] null;
+        width = withDefault config [ "barWidth" ] null;
         spacing = withDefault config [ "moduleSpacing" ] 20;
 
         margin-left = withDefault config [ "barLMargin" ] 0;
