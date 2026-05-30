@@ -342,9 +342,9 @@ in {
                     #idle_inhibitor,
                     #memory,
                     #network,
-                    #sway/mode,
-                    #sway/scratchpad,
-                    #sway/workspaces {
+                    #mode,
+                    #scratchpad,
+                    #workspaces {
                         margin-left: 4px;
                         margin-right: 4px;
                         margin-top: 2px;
