@@ -49,6 +49,9 @@
         centreModules: list<attrs> optional
             As with centreModules
 
+        ipcId : str optional
+            If set, enables ipc for the bar with the given id
+
         additionalBars: attrs<attrs<*>> optional
             Explicit declaration of additional bars
             Uses the same format as the integrationConfig, without the
@@ -69,6 +72,8 @@ let
         cModules = withDefault config [ "centreModules" ] [];
     in {
         layer = "top";
+        ipc = config ? "ipcId";
+        id = withDefault config [ "ipcId" ] null;
         mode = withDefault config [ "barMode" ] "dock";
         position = withDefault config [ "barPosition" ] "top";
         height = withDefault config [ "barHeight" ] null;
