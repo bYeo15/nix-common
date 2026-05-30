@@ -19,10 +19,10 @@ in {
         };
 
         termColour = {
-            mainBg = "TODO";
-            accentBg = "TODO";
-            mainFg = "TODO";
-            accentFg = "TODO";
+            mainBg = "243";
+            accentBg = "237";
+            mainFg = "234";
+            accentFg = "233";
         };
 
         integrations = {
@@ -151,14 +151,14 @@ in {
                     {
                         id = "mainBar";
                         command = "${lib.getExe pkgs.waybar}";
-                        mode = "hidden";
+                        mode = "invisible";
                     }
 
                     {
                         id = "mediaBar";
                         # dummy command just to make the bar id available
                         command = "true";
-                        mode = "hidden";
+                        mode = "invisible";
                     }
                 ];
 
