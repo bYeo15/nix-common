@@ -65,31 +65,31 @@ in {
         colors = {
             focused = {
                 background = "#${activeTheme.colour.accentBg}";
-                border = "#${activeTheme.colour.accentFg}";
-                text = "#${activeTheme.colour.accentBg}";
-                indicator = "#${activeTheme.colour.accentBg}";
-                childBorder = "#${activeTheme.colour.accentBg}";
+                border = "#${activeTheme.colour.accentBg}";
+                text = "#${activeTheme.colour.accentFg}";
+                indicator = "#${activeTheme.colour.accentFg}";
+                childBorder = "#${activeTheme.colour.accentFg}";
             };
             focusedInactive = {
                 background = "#${activeTheme.colour.mainBg}";
-                border = "#${activeTheme.colour.mainFg}";
-                text = "#${activeTheme.colour.mainBg}";
-                indicator = "#${activeTheme.colour.mainBg}";
-                childBorder = "#${activeTheme.colour.mainBg}";
+                border = "#${activeTheme.colour.mainBg}";
+                text = "#${activeTheme.colour.mainFg}";
+                indicator = "#${activeTheme.colour.mainFg}";
+                childBorder = "#${activeTheme.colour.mainFg}";
             };
             unfocused = {
                 background = "#${activeTheme.colour.mainBg}";
-                border = "#${activeTheme.colour.mainFg}";
-                text = "#${activeTheme.colour.mainBg}";
-                indicator = "#${activeTheme.colour.mainBg}";
-                childBorder = "#${activeTheme.colour.mainBg}";
+                border = "#${activeTheme.colour.mainBg}";
+                text = "#${activeTheme.colour.mainFg}";
+                indicator = "#${activeTheme.colour.mainFg}";
+                childBorder = "#${activeTheme.colour.mainFg}";
             };
             urgent = {
                 background = "#${activeTheme.colour.accentBg}";
-                border = "#${activeTheme.colour.accentFg}";
-                text = "#${activeTheme.colour.accentBg}";
-                indicator = "#${activeTheme.colour.accentBg}";
-                childBorder = "#${activeTheme.colour.accentBg}";
+                border = "#${activeTheme.colour.accentBg}";
+                text = "#${activeTheme.colour.accentFg}";
+                indicator = "#${activeTheme.colour.accentFg}";
+                childBorder = "#${activeTheme.colour.accentFg}";
             };
         };
 
