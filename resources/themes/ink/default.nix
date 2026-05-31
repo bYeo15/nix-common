@@ -12,6 +12,7 @@ in {
         fontSans = "FreeSans";
 
         colour = {
+            # TODO redo light colors
             mainBg = "E5DFD3";
             accentBg = "B3B5B2";
             mainFg = "4A5353";
@@ -152,6 +153,9 @@ in {
                         id = "mainBar";
                         command = "${lib.getExe pkgs.waybar}";
                         mode = "invisible";
+                        # disable show-hide within sway itself, prevents
+                        # waybar leaving silhouettes
+                        extraConfig = "modifier none";
                     }
 
                     {
@@ -159,6 +163,7 @@ in {
                         # dummy command just to make the bar id available
                         command = "true";
                         mode = "invisible";
+                        extraConfig = "modifier none";
                     }
                 ];
 
