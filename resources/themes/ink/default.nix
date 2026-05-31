@@ -178,8 +178,10 @@ in {
                 barExclusive = false;
                 barPassthrough = false;
 
-                barHeight = 1000;
-                barWidth = 25;
+                barHeight = 1100;
+                barLMargin = 3;
+
+                moduleSpacing = 0;
 
                 leftModules = [
                     {
@@ -195,6 +197,7 @@ in {
                     {
                         moduleName = "sway/workspaces";
                         format = "{name}";
+                        all-outputs = true;
                     }
 
                     {
@@ -237,12 +240,14 @@ in {
                         moduleName = "backlight";
                         format = "{percent}%";
                         tooltip = false;
+                        align = 1.0;
                     }
 
                     {
                         moduleName = "cpu";
                         format = "{usage}%";
                         tooltip = false;
+                        align = 1.0;
                         on-click = runHtop;
                     }
 
@@ -250,6 +255,7 @@ in {
                         moduleName = "memory";
                         format = "{percentage}%";
                         tooltip-format = "{used}G / {avail}G";
+                        align = 1.0;
                         on-click = runHtop;
                     }
 
@@ -279,8 +285,10 @@ in {
                         barExclusive = false;
                         barPassthrough = false;
 
-                        barWidth = 500;
-                        barHeight = 25;
+                        barWidth = 900;
+                        barBMargin = 5;
+
+                        moduleSpacing = 0;
 
                         leftModules = [
                             {
@@ -333,7 +341,8 @@ in {
                 style = activeTheme: ''
                     * {
                         font-family: ${activeTheme.fontMono};
-                        font-size: ${toString activeTheme.fontSizeNormal}px;
+                        font-size: ${toString activeTheme.fontSizeLarge}px;
+                        font-weight: bold;
                     }
 
                     button {
@@ -350,14 +359,14 @@ in {
 
                     tooltip label {
                         color: #${activeTheme.colour.mainFg};
+                        font-weight: normal;
                     }
 
                     window#waybar {
                         background-color: #${activeTheme.colour.mainBg};
                         color: #${activeTheme.colour.mainFg};
-                        border: 2px solid #${activeTheme.colour.accentBg};
-                        box-shadow: inset -2px 2px 0 0px #${activeTheme.colour.accentFg}, inset 2px -2px 0 0px #${activeTheme.colour.accentFg};
-                        margin: 5px;
+                        border: 2px solid #${activeTheme.colour.accentFg};
+                        box-shadow: inset -2px 2px 0 0px #${activeTheme.colour.accentBg}, inset 2px -2px 0 0px #${activeTheme.colour.accentBg};
                     }
 
                     #battery,
@@ -372,52 +381,79 @@ in {
                     #workspaces {
                         margin-top: 3px;
                         margin-bottom: 3px;
-                        padding-top: 5px;
-                        padding-bottom: 5px;
-                        padding-left: 2px;
-                        padding-right: 2px;
-                        background-color: #${activeTheme.colour.accentBg};
-                        border: 1px solid #${activeTheme.colour.accentFg};
+                        margin-left: 6px;
+                        margin-right: 6px;
+                        padding-top: 2px;
+                        padding-bottom: 2px;
+                        padding-left: 1px;
+                        padding-right: 1px;
+                        background-color: #B3B5B2;
+                        border: 1px solid #4A5353;
                     }
 
                     #backlight {
                         border-bottom: 0px;
-                        margin-bottom: -2px;
+                        margin-bottom: -1px;
                     }
 
                     #cpu {
                         border-bottom: 0px;
-                        margin-bottom: -2px;
+                        margin-bottom: -1px;
                         border-top: 0px;
-                        margin-top: -2px;
+                        margin-top: -1px;
                     }
 
                     #memory {
                         border-top: 0px;
-                        margin-top: -2px;
+                        margin-top: -1px;
+                    }
+
+                    #idle_inhibitor {
+                        margin-top: 5px;
+                    }
+
+                    #battery {
+                        margin-bottom: 5px;
+                    }
+
+                    #workspaces {
+                        padding: 0px;
                     }
 
                     #workspaces button {
-                        color: #${activeTheme.colour.mainFg};
+                        color: #4A5353;
+                        padding-top: 1px;
+                        padding-bottom: 1px;
+                        padding-left: 1px;
+                        padding-right: 1px;
+                    }
+
+                    #workspaces button.focused {
+                        color: #E5DFD3;
+                        background-color: #4A5353;
                     }
 
                     window#waybar #workspaces button.focused:hover {
-                        color: #${activeTheme.colour.mainFg};
+                        color: #E5DFD3;
+                        background-color: #4A5353;
                     }
 
-                    window#waybar #workspaces button.focused, #workspaces button.urgent {
-                        background-color: #${activeTheme.colour.accentBg};
-                        color: #${activeTheme.colour.accentFg};
+                    window#waybar.mainBar {
+                        min-height: 1100px;
                     }
 
-                    .mainBar window#waybar {
-                        height: 1000px;
-                        min-height: 1000px;
+                    #pulseaudio,
+                    #mpris,
+                    #custom-song_prev,
+                    #custom-song_next {
+                        margin-top: 4px;
+                        margin-bottom: 4px;
+                        margin-left: 8px;
+                        margin-right: 8px;
                     }
 
-                    .mediaBar window#waybar {
-                        width: 500px;
-                        min-width: 500px;
+                    window#waybar.mediaBar {
+                        min-width: 900px;
                     }
                 '';
             };
