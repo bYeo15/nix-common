@@ -72,7 +72,7 @@
 
 let
     withDefault = extlib.withDefault;
-    toBar = config: let
+    toBar = barname: config: let
         lModules = withDefault config [ "leftModules" ] [];
         rModules = withDefault config [ "rightModules" ] [];
         cModules = withDefault config [ "centreModules" ] [];
@@ -107,11 +107,11 @@ in {
 
     realise = activeTheme: integrationConfig: {
         settings = {
-            mainBar = toBar integrationConfig;
+            mainBar = toBar "mainBar" integrationConfig;
         } //
         # Generate additional bars
         (
-            lib.mapAttrs (name: value: toBar value)
+            lib.mapAttrs (name: value: toBar name value)
                               (withDefault integrationConfig [ "additionalBars" ] { })
         );
 
