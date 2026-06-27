@@ -306,10 +306,10 @@ in {
                         centreModules = [
                             {
                                 moduleName = "pulseaudio";
-                                format = "{volume} │ {format_source}";
-                                format-bluetooth = "{volume}ᛒ │ {format_source}";
+                                format = "{volume}% │ {format_source}";
+                                format-bluetooth = "{volume}%ᛒ │ {format_source}";
                                 format-muted = "X │ {format_source}";
-                                format-source = "{volume}";
+                                format-source = "{volume}%";
                                 format-source-muted = "X";
                                 on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
                                 on-right-click = "wpctl set-mute @DEFAULT_SOURCE@ toggle";
